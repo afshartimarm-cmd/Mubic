@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# مسیر قابل نوشتن در محیط هاست
-DATA_DIR = os.environ.get("MUBIC_DATA_DIR", "/tmp/mubic_data")
+# فضای ذخیره‌سازی دائمی Deplexo
+DATA_DIR = os.environ.get("MUBIC_DATA_DIR", "/data")
 
 os.makedirs(DATA_DIR, exist_ok=True)
 
