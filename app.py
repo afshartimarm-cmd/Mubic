@@ -10,11 +10,20 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or secrets.token_hex(32)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "mubic.db")
-UPLOAD_DIR = os.path.join(BASE_DIR, "mubic_uploads")
+
+# مسیر قابل نوشتن در محیط هاست
+DATA_DIR = os.environ.get("MUBIC_DATA_DIR", "/tmp/mubic_data")
+
+os.makedirs(DATA_DIR, exist_ok=True)
+
+DB_PATH = os.path.join(DATA_DIR, "mubic.db")
+
+UPLOAD_DIR = os.path.join(DATA_DIR, "mubic_uploads")
 MUSIC_DIR = os.path.join(UPLOAD_DIR, "music")
 COVER_DIR = os.path.join(UPLOAD_DIR, "covers")
-os.makedirs(MUSIC_DIR, exist_ok=True); os.makedirs(COVER_DIR, exist_ok=True)
+
+os.makedirs(MUSIC_DIR, exist_ok=True)
+os.makedirs(COVER_DIR, exist_ok=True)
 app.config["MAX_CONTENT_LENGTH"] = 50 * 1024 * 1024
 ADMIN_USERNAME = "JJoo"
 ADMIN_PASSWORD = "Abolfazl"  # Change before any public deployment.
